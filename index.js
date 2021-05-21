@@ -8,7 +8,7 @@ const uuidv4 = require("uuid").v4;
 // all github actions
 const { Octokit } = require("@octokit/rest");
 const octokit = new Octokit({
-  auth: "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",
+  auth: process.env.PERSONAL_ACCESS_TOKEN,
 });
 
 // create a repository -- tested
@@ -91,32 +91,32 @@ const pushChangesToBranch = async (project_name, branch, sha) => {
   });
 };
 
-// createRepository("test_02").then((_) => {
-//   console.log(_);
-// });
+createRepository("test_02").then((_) => {
+  console.log(_);
+});
 
-// getCommitsTree("test_02", "1591cda0854662f1174ffa2e1ee885988353951e")
-//   .then((_) => {
-//     console.log(_); //ad1eec81fc333bf8246911933e26339f38cca52a
-//   })
-//   .catch((er) => console.log(er));
+getCommitsTree("test_02", "1591cda0854662f1174ffa2e1ee885988353951e")
+  .then((_) => {
+    console.log(_); //ad1eec81fc333bf8246911933e26339f38cca52a
+  })
+  .catch((er) => console.log(er));
 
-// createBlob(
-//   "test_02",
-//   fs.readFileSync(__dirname + "/views/index.html").toString()
-// )
-//   .then(async (_) => {
-//     let blobs = [_];
-//     let paths = ["index.html"];
-//     let last_commit = await getRef("test_02","main")
-//     let currentCommit = await getCommit("test_02", last_commit);
-//     let currentTreeSHA = currentCommit.tree.sha;
-//     let latest_commit = currentCommit.sha;
-//     let newTreeSha = await createTree("test_02", blobs, paths, currentTreeSHA);
-//     let newCommitSha = await createCommit("test_02", newTreeSha, latest_commit);
-//     console.log(await pushChangesToBranch("test_02", "main", newCommitSha));
-//   })
-//   .catch((err) => console.log(err));
+createBlob(
+  "test_02",
+  fs.readFileSync(__dirname + "/views/index.html").toString()
+)
+  .then(async (_) => {
+    let blobs = [_];
+    let paths = ["index.html"];
+    let last_commit = await getRef("test_02","main")
+    let currentCommit = await getCommit("test_02", last_commit);
+    let currentTreeSHA = currentCommit.tree.sha;
+    let latest_commit = currentCommit.sha;
+    let newTreeSha = await createTree("test_02", blobs, paths, currentTreeSHA);
+    let newCommitSha = await createCommit("test_02", newTreeSha, latest_commit);
+    console.log(await pushChangesToBranch("test_02", "main", newCommitSha));
+  })
+  .catch((err) => console.log(err));
 
 // retrieve specific file from repository
 const getFiles = async (project_name, path, commit) => {
@@ -129,8 +129,14 @@ const getFiles = async (project_name, path, commit) => {
   return Buffer.from(files_resp.data.content, "base64").toString("utf-8");
 };
 
+let startTime = Date.now();
+
 getFiles("test_02", "index.html", "ef207a7b07bfb00f00179f287490c720894b585d")
   .then((_) => {
-    console.log(_);
+    let endTime = Date.now();
+    console.log(
+      _,
+      "Time Taken to get the file: " + (endTime - startTime) / 1000 + "s"
+    );
   })
   .catch((err) => console.log(err));
