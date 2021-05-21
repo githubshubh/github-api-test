@@ -1,1 +1,1 @@
-Just some test function for Github APi wrapper "octokit".
+Just some test functions for Github APi wrapper "octokit".
