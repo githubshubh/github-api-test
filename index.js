@@ -92,15 +92,15 @@ const pushChangesToBranch = async (project_name, branch, sha) => {
   });
 };
 
-// createRepository("test").then((_) => {
-//   console.log(_);
-// });
+createRepository("test").then((_) => {
+  console.log(_);
+});
 
-// getCommitsTree("test_02", "1591cda0854662f1174ffa2e1ee885988353951e")
-//   .then((_) => {
-//     console.log(_); //ad1eec81fc333bf8246911933e26339f38cca52a
-//   })
-//   .catch((er) => console.log(er));
+getCommitsTree("test_02", "1591cda0854662f1174ffa2e1ee885988353951e")
+  .then((_) => {
+    console.log(_); //ad1eec81fc333bf8246911933e26339f38cca52a
+  })
+  .catch((er) => console.log(er));
 
 createBlob("test", fs.readFileSync(__dirname + "/views/index.html").toString())
   .then(async (_) => {
@@ -127,14 +127,14 @@ const getFiles = async (project_name, path, commit) => {
   return Buffer.from(files_resp.data.content, "base64").toString("utf-8");
 };
 
-// let startTime = Date.now();
+let startTime = Date.now();
 
-// getFiles("test_02", "index.html", "ef207a7b07bfb00f00179f287490c720894b585d")
-//   .then((_) => {
-//     let endTime = Date.now();
-//     console.log(
-//       _,
-//       "Time Taken to get the file: " + (endTime - startTime) / 1000 + "s"
-//     );
-//   })
-//   .catch((err) => console.log(err));
+getFiles("test_02", "index.html", "ef207a7b07bfb00f00179f287490c720894b585d")
+  .then((_) => {
+    let endTime = Date.now();
+    console.log(
+      _,
+      "Time Taken to get the file: " + (endTime - startTime) / 1000 + "s"
+    );
+  })
+  .catch((err) => console.log(err));
