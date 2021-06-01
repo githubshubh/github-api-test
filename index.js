@@ -92,29 +92,29 @@ const pushChangesToBranch = async (project_name, branch, sha) => {
   });
 };
 
-createRepository("test").then((_) => {
-  console.log(_);
-});
+// createRepository("test").then((_) => {
+//   console.log(_);
+// });
 
-getCommitsTree("test_02", "1591cda0854662f1174ffa2e1ee885988353951e")
-  .then((_) => {
-    console.log(_); //ad1eec81fc333bf8246911933e26339f38cca52a
-  })
-  .catch((er) => console.log(er));
+// getCommitsTree("test_02", "1591cda0854662f1174ffa2e1ee885988353951e")
+//   .then((_) => {
+//     console.log(_); //ad1eec81fc333bf8246911933e26339f38cca52a
+//   })
+//   .catch((er) => console.log(er));
 
-createBlob("test", fs.readFileSync(__dirname + "/views/index.html").toString())
-  .then(async (_) => {
-    let blobs = [_];
-    let paths = ["index.html"];
-    let last_commit = await getRef("test", "main");
-    let currentCommit = await getCommit("test", last_commit);
-    let currentTreeSHA = currentCommit.tree.sha;
-    let latest_commit = currentCommit.sha;
-    let newTreeSha = await createTree("test", blobs, paths, currentTreeSHA);
-    let newCommitSha = await createCommit("test", newTreeSha, latest_commit);
-    console.log(await pushChangesToBranch("test", "main", newCommitSha));
-  })
-  .catch((err) => console.log(err));
+// createBlob("test", fs.readFileSync(__dirname + "/views/index.html").toString())
+//   .then(async (_) => {
+//     let blobs = [_];
+//     let paths = ["index.html"];
+//     let last_commit = await getRef("test", "main");
+//     let currentCommit = await getCommit("test", last_commit);
+//     let currentTreeSHA = currentCommit.tree.sha;
+//     let latest_commit = currentCommit.sha;
+//     let newTreeSha = await createTree("test", blobs, paths, currentTreeSHA);
+//     let newCommitSha = await createCommit("test", newTreeSha, latest_commit);
+//     console.log(await pushChangesToBranch("test", "main", newCommitSha));
+//   })
+//   .catch((err) => console.log(err));
 
 // retrieve specific file from repository
 const getFiles = async (project_name, path, commit) => {
@@ -129,12 +129,16 @@ const getFiles = async (project_name, path, commit) => {
 
 let startTime = Date.now();
 
-getFiles("test_02", "index.html", "ef207a7b07bfb00f00179f287490c720894b585d")
-  .then((_) => {
-    let endTime = Date.now();
-    console.log(
-      _,
-      "Time Taken to get the file: " + (endTime - startTime) / 1000 + "s"
-    );
-  })
-  .catch((err) => console.log(err));
+// getFiles("test_02", "index.html", "ef207a7b07bfb00f00179f287490c720894b585d")
+//   .then((_) => {
+//     let endTime = Date.now();
+//     console.log(
+//       _,
+//       "Time Taken to get the file: " + (endTime - startTime) / 1000 + "s"
+//     );
+//   })
+//   .catch((err) => console.log(err));
+
+// getCommit("temp-test", "0339fa430c73c2a2fccde97bf2b7a0d3b421cef7").then((_) =>
+//   console.log(_)
+// );
