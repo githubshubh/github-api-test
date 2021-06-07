@@ -48,7 +48,7 @@ const createBlob = async (project_name, content) => {
     owner: "coot-common-suite",
     repo: project_name,
     content,
-    encoding: "utf-8",
+    encoding: "base64",
   });
   return blob_response.data.sha;
 };
@@ -102,7 +102,7 @@ const pushChangesToBranch = async (project_name, branch, sha) => {
 //   })
 //   .catch((er) => console.log(er));
 
-// createBlob("test", fs.readFileSync(__dirname + "/views/index.html").toString())
+// createBlob("test", Buffer.from(fs.readFileSync(__dirname + "/views/index.html"),"binary").toString("base64"))
 //   .then(async (_) => {
 //     let blobs = [_];
 //     let paths = ["index.html"];
@@ -129,15 +129,15 @@ const getFiles = async (project_name, path, commit) => {
 
 let startTime = Date.now();
 
-// getFiles("test_02", "index.html", "ef207a7b07bfb00f00179f287490c720894b585d")
-//   .then((_) => {
-//     let endTime = Date.now();
-//     console.log(
-//       _,
-//       "Time Taken to get the file: " + (endTime - startTime) / 1000 + "s"
-//     );
-//   })
-//   .catch((err) => console.log(err));
+getFiles("delex", "index.html", "66561d44212144a125860b7a592ee16584584e39")
+  .then((_) => {
+    let endTime = Date.now();
+    console.log(
+      _,
+      "Time Taken to get the file: " + (endTime - startTime) / 1000 + "s"
+    );
+  })
+  .catch((err) => console.log(err));
 
 // getCommit("temp-test", "0339fa430c73c2a2fccde97bf2b7a0d3b421cef7").then((_) =>
 //   console.log(_)
